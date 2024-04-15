@@ -1,0 +1,28 @@
+version: '3'
+services:
+  my-project:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres
+    networks:
+      - my-network
+    environment:
+      - postgresql://admin:123456@postgres:5432/test
+   
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: test
+    networks:
+      - my-network
+    ports:
+      - 5432:5432
+
+networks:
+  my-network:
