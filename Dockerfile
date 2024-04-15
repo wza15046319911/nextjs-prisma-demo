@@ -25,11 +25,14 @@ WORKDIR /app
 
 # Copy the built Next.js application from the build stage
 COPY --from=build /app/.next ./.next
+COPY --from=build /app/.next/standalone ./
+COPY --from=build /app/.next/static ./.next/static
 COPY --from=build /app/public ./public
 COPY --from=build /app/package*.json ./
 COPY --from=build /app/.env ./
 COPY --from=build /app/docker-bootstrap-app.sh ./
 COPY --from=build /app/prisma ./prisma
+
 
 # Install only production dependencies
 RUN npm ci --production
