@@ -14,12 +14,11 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const machineNumbers = [];
     for (let i = 0; i < quantity; i++) {
         machineNumbers.push({
-            serial_number: nanoid(), // 生成唯一的随机字符串
+            serial_number: nanoid(),
             batch_id: result.id
         });
     }
 
-    // 批量创建 machine_numbers 条目
     // @ts-ignore
     await prisma.machine_numbers.createMany({
         data: machineNumbers
